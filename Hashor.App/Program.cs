@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Security.Authentication;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using CommandLine;
 using CommandLine.Text;
+using hashor;
 
-namespace hashor
+namespace Hashor.App
 {
     class Program
     {

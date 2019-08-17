@@ -1,10 +1,9 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace hashor
+namespace Hashor.App
 {
     public interface IHashStrategy
     {
@@ -13,25 +12,25 @@ namespace hashor
 
     public class HashGen
     {
-        private readonly HashAlgorithm _hasher;
-        private readonly Encoding _inputEncoding;
+        public readonly HashAlgorithm hasher;
+        public readonly Encoding inputEncoding;
 
         public HashGen(HashAlgorithmType hashAlgorithmType, Encoding enc)
         {
-            _hasher = InitialiseHasher(hashAlgorithmType);
-            _inputEncoding = enc;
+            hasher = InitialiseHasher(hashAlgorithmType);
+            inputEncoding = enc;
         }
 
         public string GetHash(string text)
         {
             byte[] binaryString = EncodeToBytes(text);
-            byte[] hash = _hasher.ComputeHash(binaryString);
+            byte[] hash = hasher.ComputeHash(binaryString);
             return Convert.ToBase64String(hash);
         }
 
         private byte[] EncodeToBytes(string text)
         {
-            return _inputEncoding.GetBytes(text);
+            return inputEncoding.GetBytes(text);
         }
 
         private static HashAlgorithm InitialiseHasher(HashAlgorithmType hashAlgorithmType)

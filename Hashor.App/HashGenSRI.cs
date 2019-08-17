@@ -1,6 +1,7 @@
 using System;
 using System.Security.Authentication;
 using System.Text;
+using Hashor.App;
 
 namespace hashor
 {

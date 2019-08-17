@@ -7,70 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
-using hashor;
 
 namespace Hashor.App
 {
     class Program
     {
-        
-        /*[Verb("sri", HelpText = "Utility for generating subresource integrity hashes.")]
-        class AddOptions {
-            //normal options here
-        }*/
-        public class Options
-        {
-            
-            [Usage(ApplicationAlias = "Hasher")]
-            public static IEnumerable<Example> Examples
-            {
-                get
-                {
-                    return new List<Example>() {
-                        new Example("Convert file to a trendy format", new Options {  })
-                    };
-                }
-            }
-            
-            [Option('h', "help", Required = false, HelpText = "Displays help documentation.")]
-            public bool Help { get; set; }
-
-            [Option("stdin", Default = false, HelpText = "Read from stdin")]
-            public bool stdin { get; set; }
-        }
 
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed<Options>(o =>
-                {
-                    if (o.Help)
-                    {
-                        Console.WriteLine($"Verbose output enabled. Current Arguments: -v {o.Help}");
-                        Console.WriteLine("Quick Start Example! App is in Verbose mode!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Current Arguments: -v {o.Help}");
-                        Console.WriteLine("Quick Start Example!");
-                    }
-                });
-            
-
-            Console.WriteLine("Provide a URI to be hashed:");
-            var input = Console.ReadLine();
-            
-            if(input == null) throw new ArgumentNullException();
+            Console.WriteLine("Provide path to text for hashing:");
 
             try
             {
-                var requester = new Request();
-                var result = requester.GetPage(input);
-                Console.WriteLine(result.Result);
-                var hasher = new HashGenSri(HashAlgorithmType.Sha512, Encoding.UTF8);
-                var hash = hasher.GetHash(result.Result);
+                string input = Console.ReadLine();
+                HashGenSri hasher = new HashGenSri(HashAlgorithmType.Sha512, Encoding.UTF8);
+                string hash = hasher.GetHash(input);
                 Console.WriteLine(hash);
-                // File.WriteAllText("./index.html", hash);
+                File.AppendAllText("./hashes.txt", hash + "\n");
             }
             catch (Exception e)
             {

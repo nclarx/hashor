@@ -1,23 +1,21 @@
-using System;
 using System.Security.Authentication;
 using System.Text;
-using Hashor.App;
 
-namespace hashor
+namespace Hashor.App
 {
     public class HashGenSri : HashGen
     {
-        private string hashPrefix;
+        public readonly string HashPrefix;
 
         public HashGenSri(HashAlgorithmType hashAlgorithmType, Encoding enc) : base(hashAlgorithmType, enc)
         {
-            hashPrefix = hashAlgorithmType.ToString();
+            HashPrefix = hashAlgorithmType.ToString().ToLower() + "-";
         }
 
         public new string GetHash(string text)
         {
-            var hash = base.GetHash(text);
-            return hashPrefix.ToLower() + "-" + hash;
+            string hash = base.GetHash(text);
+            return HashPrefix + hash;
         }
     }
 }

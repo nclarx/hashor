@@ -2,7 +2,6 @@ using System;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
-using hashor;
 using Xunit;
 
 namespace Hashor.App.Tests
@@ -38,14 +37,14 @@ namespace Hashor.App.Tests
             // Assert
             
             // Check hash algos
-            Assert.NotStrictEqual(MD5.Create(), hashGenInstanceMd5.hasher);
-            Assert.IsType<SHA1Managed>(hashGenInstanceSha1.hasher);
-            Assert.IsType<SHA256Managed>(hashGenInstanceSha256.hasher);
-            Assert.IsType<SHA384Managed>(hashGenInstanceSha384.hasher);
-            Assert.IsType<SHA512Managed>(hashGenInstanceSha512.hasher);
+            Assert.NotStrictEqual(MD5.Create(), hashGenInstanceMd5.Hasher);
+            Assert.IsType<SHA1Managed>(hashGenInstanceSha1.Hasher);
+            Assert.IsType<SHA256Managed>(hashGenInstanceSha256.Hasher);
+            Assert.IsType<SHA384Managed>(hashGenInstanceSha384.Hasher);
+            Assert.IsType<SHA512Managed>(hashGenInstanceSha512.Hasher);
             
             // Check encoding
-            Assert.Equal(Encoding.UTF8, hashGenInstanceSha512.inputEncoding);
+            Assert.Equal(Encoding.UTF8, hashGenInstanceSha512.InputEncoding);
         }
     }
 }

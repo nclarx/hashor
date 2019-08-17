@@ -12,25 +12,25 @@ namespace Hashor.App
 
     public class HashGen
     {
-        public readonly HashAlgorithm hasher;
-        public readonly Encoding inputEncoding;
+        public readonly HashAlgorithm Hasher;
+        public readonly Encoding InputEncoding;
 
         public HashGen(HashAlgorithmType hashAlgorithmType, Encoding enc)
         {
-            hasher = InitialiseHasher(hashAlgorithmType);
-            inputEncoding = enc;
+            Hasher = InitialiseHasher(hashAlgorithmType);
+            InputEncoding = enc;
         }
 
         public string GetHash(string text)
         {
             byte[] binaryString = EncodeToBytes(text);
-            byte[] hash = hasher.ComputeHash(binaryString);
+            byte[] hash = Hasher.ComputeHash(binaryString);
             return Convert.ToBase64String(hash);
         }
 
         private byte[] EncodeToBytes(string text)
         {
-            return inputEncoding.GetBytes(text);
+            return InputEncoding.GetBytes(text);
         }
 
         private static HashAlgorithm InitialiseHasher(HashAlgorithmType hashAlgorithmType)

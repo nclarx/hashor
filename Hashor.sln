@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashor.App", "Hashor.App\Hashor.App.csproj", "{68EEC309-BA00-484A-A61A-19B6FEC3BE68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashor.App.Tests", "Hashor.App.Tests\Hashor.App.Tests.csproj", "{55AF0140-E944-484F-9409-AEF1774560CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68EEC309-BA00-484A-A61A-19B6FEC3BE68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68EEC309-BA00-484A-A61A-19B6FEC3BE68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68EEC309-BA00-484A-A61A-19B6FEC3BE68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68EEC309-BA00-484A-A61A-19B6FEC3BE68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AF0140-E944-484F-9409-AEF1774560CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55AF0140-E944-484F-9409-AEF1774560CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55AF0140-E944-484F-9409-AEF1774560CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55AF0140-E944-484F-9409-AEF1774560CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

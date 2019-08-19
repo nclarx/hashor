@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,47 +13,51 @@ namespace Hashor.App
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            Console.WriteLine("Provide path to text for hashing:");
+            string ar = args.Length >= 1
+                ? args[0]
+                : throw new ArgumentException("No arguments supplied. Use the -h option to see usage.");
 
-            try
-            {
-                string input = Console.ReadLine();
-                HashGenSri hasher = new HashGenSri(HashAlgorithmType.Sha512, Encoding.UTF8);
-                string hash = hasher.GetHash(input);
-                Console.WriteLine(hash);
-                File.AppendAllText("./hashes.txt", hash + "\n");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            Parser parser = new Parser(config => config.HelpWriter = Console.Out);
+
+            parser.ParseArguments<HashOptions.SriOptions, HashOptions>(args)
+                .WithParsed<HashOptions>(options => { })
+                .WithParsed<HashOptions.SriOptions>(options =>
+                {
+                    FileIngestService fileIngestService;
+                    HashGenSri hashGen;
+
+                    AlgorithmUtility algoUtil = new AlgorithmUtility();
+
+                    if (options.Path != null)
+                    {
+                        fileIngestService = new FileIngestService(options.Path);
+                        hashGen = DoSriHash(
+                            options.Path,
+                            algoUtil.GetAlgorithmType(options.AlgorithmName),
+                            fileIngestService.GetFileAsText()
+                        );
+                        
+                    }
+                })
+                .WithParsed<HashOptions.ListOptions>(options =>
+                {
+                    // TODO: plan features for hash gen w/o SRI
+                })
+                .WithNotParsed(errors =>
+                {
+                    // TODO: investigate docs for how to handle errors 
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine(error);
+                    }
+                });
         }
-    }
 
-    class Request
-    {
-        public Task<string> GetPage(string url)
+        private static HashGenSri DoSriHash(string path, HashAlgorithmType algorithmName, string inputText)
         {
-            return GetAsyncHttp(url);
-        }
-
-        private async Task<string> GetAsyncHttp(string uri)
-        {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(uri);
-            request.Method = WebRequestMethods.Http.Get;
-
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return await reader.ReadToEndAsync();
-            }
+            return new HashGenSri(algorithmName, Encoding.UTF8, inputText);
         }
     }
 }

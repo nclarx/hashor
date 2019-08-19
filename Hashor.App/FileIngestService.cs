@@ -1,15 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+
 
 namespace Hashor.App
 {
-    public class IngestFile
+    public class FileIngestService
     {
-
         private string filePath;
-        
-        IngestFile(string path)
+
+        public FileIngestService(string path)
         {
             filePath = path;
         }
@@ -20,7 +19,13 @@ namespace Hashor.App
             {
                 return File.ReadAllText(filePath);
             }
-            catch (Exception e)
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            catch (FileLoadException e)
             {
                 Console.WriteLine(e);
                 throw;
@@ -39,6 +44,5 @@ namespace Hashor.App
                 throw;
             }
         }
-        
     }
 }
